@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="pageTitle">小宏機場接送服務</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f6ff;
+      color: #0b1324;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      text-align: center;
+      color: #0ea5e9;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #e2e8f0;
+      text-align: center;
+    }
+    th {
+      background-color: #f1f5f9;
+    }
+    .contact {
+      margin-top: 15px;
+    }
+    .contact a {
+      color: #0ea5e9;
+      text-decoration: none;
+      margin-right: 10px;
+    }
+    .note {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #64748b;
+    }
+    .lang-select {
+      text-align: right;
+      margin-bottom: 10px;
+    }
+    .lang-select button {
+      margin-left: 5px;
+      padding: 4px 8px;
+      border: 1px solid #0ea5e9;
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="lang-select">
+      <button onclick="setLang('zh')">中文</button>
+      <button onclick="setLang('en')">English</button>
+      <button onclick="setLang('vi')">Tiếng Việt</button>
+      <button onclick="setLang('th')">ไทย</button>
+      <button onclick="setLang('id')">Bahasa</button>
+    </div>
+
+    <h1 data-i18n="title">小宏（武宏）機場接送</h1>
+    <div class="contact">
+      <span data-i18n="phone">電話：</span><a href="tel:0981253201">0981-253-201</a><br>
+      <span data-i18n="line">LINE：</span><a href="https://lin.ee/t0mYjK1" target="_blank">💬 聯絡我</a>
+    </div>
+
+    <h2 data-i18n="priceTitle">單程價格（新台幣）</h2>
+    <table>
+      <thead>
+        <tr>
+          <th data-i18n="colFromTo">出發／抵達</th>
+          <th data-i18n="colPrice">價格</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-i18n="chiayiTPE">嘉義 → 桃園機場</td>
+          <td>$5,000</td>
+        </tr>
+        <tr>
+          <td data-i18n="chiayiTSA">嘉義 → 松山機場</td>
+          <td>$6,000</td>
+        </tr>
+        <tr>
+          <td data-i18n="chiayiTaichung">嘉義 → 台中機場</td>
+          <td>$2,500</td>
+        </tr>
+        <tr>
+          <td data-i18n="chiayiKHH">嘉義 → 高雄機場</td>
+          <td>$2,800</td>
+        </tr>
+        <tr>
+          <td data-i18n="chiayiAlishan">嘉義 → 阿里山</td>
+          <td>$2,500</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="note" data-i18n="charterNote">※ 包車服務請 LINE 洽詢</p>
+  </div>
+
+  <script>
+    let translations = {};
+
+    // 載入 JSON
+    fetch('translations.json')
+      .then(res => res.json())
+      .then(data => {
+        translations = data;
+        setLang('zh'); // 預設中文
+      });
+
+    function setLang(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if(translations[lang] && translations[lang][key]){
+          el.textContent = translations[lang][key];
+        }
+      });
+    }
+  </script>
+</body>
+</html>
